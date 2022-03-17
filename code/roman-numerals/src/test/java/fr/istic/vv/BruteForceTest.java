@@ -39,6 +39,7 @@ public class BruteForceTest {
         for (Map.Entry<String, Integer> entry : valueByRoman.entrySet()) {
             int value = RomanNumeralUtils.parseRomanNumeral(entry.getKey());
             int expected = entry.getValue();
+            System.out.println("Expected : " + expected + " Generated : " + value);
             assertEquals(expected, value);
         }
     }
@@ -48,6 +49,7 @@ public class BruteForceTest {
         for (Map.Entry<String, Integer> entry : valueByRoman.entrySet()) {
             String value = RomanNumeralUtils.toRomanNumeral(entry.getValue());
             String expected = entry.getKey();
+            System.out.println("Expected : " + expected + " Generated : " + value);
             assertEquals(expected, value);
         }
     }
