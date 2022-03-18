@@ -8,11 +8,11 @@ import java.util.List;
 public class BinaryHeap<T> {
 
     private final Comparator<T> comparator;
-    private final List<T> heap;
+    public final List<T> heap;
 
     public BinaryHeap(Comparator<T> comparator) {
         this.comparator = comparator;
-        heap = new ArrayList<>();
+        this.heap = new ArrayList<>();
     }
 
     /**
@@ -21,7 +21,7 @@ public class BinaryHeap<T> {
      * @return unmodifiable representation of current heap
      */
     public List<T> getHeap() {
-        return Collections.unmodifiableList(heap);
+        return Collections.unmodifiableList(this.heap);
     }
 
     /**
@@ -29,13 +29,13 @@ public class BinaryHeap<T> {
      * @return the minimum object and remove it from the BinaryHeap
      */
     public T pop() throws NotSuchElementException {
-        if(heap.isEmpty()){
+        if(this.heap.isEmpty()){
             throw new NotSuchElementException();
         }
 
-        heap.sort(comparator);
-        T e = heap.get(heap.size()-1);
-        heap.remove(e);
+        this.heap.sort(comparator);
+        T e = this.heap.get(this.heap.size()-1);
+        this.heap.remove(e);
         return e;
     }
 
@@ -44,24 +44,24 @@ public class BinaryHeap<T> {
      * @return the minimum object but it does not remove it from the BinaryHeap
      */
     public T peek() throws NotSuchElementException {
-        if(heap.isEmpty()){
+        if(this.heap.isEmpty()){
             throw new NotSuchElementException();
         }
 
-        heap.sort(comparator);
-        return heap.get(heap.size()-1);
+        this.heap.sort(comparator);
+        return this.heap.get(this.heap.size()-1);
     }
 
     /**
      * Add element to heap
      * @param element element to add
      */
-    public void push(T element) { heap.add(element);}
+    public void push(T element) { this.heap.add(element);}
 
     /**
      * Get size of heap
      * @return size of heap
      */
-    public int count() { return heap.size(); }
+    public int count() { return this.heap.size(); }
 
 }
