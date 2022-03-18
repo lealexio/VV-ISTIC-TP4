@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class RomanNumeralUtils {
 
-    private static Map<String, Integer> ROMAN_CHARS_VALUES = new TreeMap<>();
+    private static Map<String, Integer> ROMAN_CHARS_VALUES = new LinkedHashMap<>();
     private static Map<String, Integer> ROMAN_REPETITION_CONSTRAINTS = new HashMap<>();
 
     static {
@@ -59,17 +59,17 @@ public class RomanNumeralUtils {
         List<String> valueAsList = List.of(value.split(""));
         // Check if all used chars are available in ROMAN
         if(!getAllowedChars().containsAll(valueAsList)){
-            System.out.println("Invalid char used in '" + value + "', available chars : " + getAllowedChars().toString());
+            System.out.println("Invalid char used in '" + value + "', available chars : " + getAllowedChars());
             return false;
         }
-
-        Pattern p = Pattern.compile("(M{1,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})|M{0,4}(CM|C?D|D?C{1,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})|M{0,4}(CM|CD|D?C{0,3})(XC|X?L|L?X{1,3})(IX|IV|V?I{0,3})|M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|I?V|V?I{1,3}))");
-        System.out.println(p.matcher(value));
-
+        Pattern p = Pattern.compile("(M{1,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})|M{0,3}(CM|C?D|D?C{1,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})|M{0,3}(CM|CD|D?C{0,3})(XC|X?L|L?X{1,3})(IX|IV|V?I{0,3})|M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|I?V|V?I{1,3}))");
         return p.matcher(value).matches();
     }
 
     public static int parseRomanNumeral(String numeral) {
+        if(numeral.isBlank()){
+            return 0;
+        }
         int total = 0;
         int current_value;
         for (int i = numeral.length()-1; i >= 0; i--) {
@@ -85,19 +85,19 @@ public class RomanNumeralUtils {
     }
 
     public static String toRomanNumeral(int number) {
-        if(number<1 || number>3999){
-            return "";
-        }
-        else{
-            StringBuilder roman = new StringBuilder();
+
+        if(number>0 && number<4000){
+            StringBuilder result = new StringBuilder();
             for (Map.Entry<String, Integer> entry : ROMAN_CHARS_VALUES.entrySet()) {
-                while(number >= entry.getValue()) {
-                    number = number - entry.getValue();
-                    roman.append(entry.getKey());
+                while (number >= entry.getValue()) {
+                    number -= entry.getValue();
+                    result.append(entry.getKey());
                 }
             }
-            return roman.toString();
+            return result.toString();
+        }
+        else{
+            return "";
         }
     }
-
 }
