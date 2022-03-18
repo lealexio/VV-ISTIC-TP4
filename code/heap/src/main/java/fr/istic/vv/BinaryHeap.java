@@ -28,7 +28,11 @@ public class BinaryHeap<T> {
      *
      * @return the minimum object and remove it from the BinaryHeap
      */
-    public T pop() {
+    public T pop() throws NotSuchElementException {
+        if(heap.isEmpty()){
+            throw new NotSuchElementException();
+        }
+
         heap.sort(comparator);
         T e = heap.get(heap.size()-1);
         heap.remove(e);
@@ -39,7 +43,11 @@ public class BinaryHeap<T> {
      *
      * @return the minimum object but it does not remove it from the BinaryHeap
      */
-    public T peek() {
+    public T peek() throws NotSuchElementException {
+        if(heap.isEmpty()){
+            throw new NotSuchElementException();
+        }
+
         heap.sort(comparator);
         return heap.get(heap.size()-1);
     }
