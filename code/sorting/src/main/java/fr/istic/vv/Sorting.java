@@ -1,4 +1,5 @@
 package fr.istic.vv;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class Sorting {
@@ -22,7 +23,6 @@ public class Sorting {
     }
 
     private static <T> T[] quicksort(T[] array, Comparator<T> comparator, int low, int high) {
-        array = array.clone();
         if (low < high) {
             int partition = partition(array, comparator, low, high);
             quicksort(array, comparator, low, partition - 1);
