@@ -81,7 +81,12 @@ public class RomanNumeralUtils {
                 total += current_value;
             }
         }
-        return total;
+        if(total < 0 || total>3999){
+            return 0;
+        }
+        else{
+            return total;
+        }
     }
 
     public static String toRomanNumeral(int number) {

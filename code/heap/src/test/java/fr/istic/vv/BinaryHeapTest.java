@@ -1,7 +1,6 @@
 package fr.istic.vv;
 
 import net.jqwik.api.*;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
